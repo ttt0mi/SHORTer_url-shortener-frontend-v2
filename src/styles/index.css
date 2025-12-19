@@ -1,0 +1,439 @@
+:root {
+	--bg: #0f1720;
+	--content-bg: rgba(255, 255, 255, 0.01);
+	--panel: #171718;
+	--accent: #3752ff;
+	--accent-2: #8c1ce1;
+	--glow: 0.5rem 1rem 2rem rgba(25, 34, 89, 0.3);
+	--success: #21c06a;
+	--danger: #ff7b7b;
+	--warning: #e8b400;
+	--radius: 0.25rem;
+	--radius-2: 1rem;
+	--btn-colour: #445990c8;
+	--all-transition: all 500ms ease-in-out;
+	--transform-transition: transform 800ms ease-in-out;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue";
+}
+
+body {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: column;
+	min-height: 100vh;
+	background-color: var(--bg);
+	background-size: cover;
+	background-position: center;
+	color: #f4f4f4;
+}
+
+header {
+	background-color: var(--panel);
+	/*
+    background-color: rgb(255, 255, 255, 0.2);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+    */
+	box-shadow: var(--glow);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 999;
+	/*
+    ->this z-index is not working with th media queries, fix
+    */
+	display: block;
+	margin-block-start: 0;
+	margin-block-end: 1rem;
+	padding-inline-start: 3rem;
+	padding-inline-end: 4rem;
+	padding-block-start: 3rem;
+	padding-block-end: 2rem;
+
+	& ul {
+		list-style: none;
+		float: right;
+
+		& li {
+			display: inline-block;
+			margin: 0 0.6rem;
+
+			& a.active,
+			a:hover {
+				color: var(--accent);
+				transition: var(--all-transition);
+			}
+
+			& a {
+				position: relative;
+				font-size: 0.9em;
+				color: #fff;
+				text-decoration: none;
+				font-weight: 400;
+				margin-left: 2.5rem;
+
+				&::after {
+					content: "";
+					position: absolute;
+					left: 0;
+					bottom: -0.25rem;
+					width: 100%;
+					height: 2px;
+					border-radius: var(--radius);
+					background-color: var(--accent);
+					transform-origin: 50% 50%;
+					transform: scaleX(0%);
+					transition: var(--transform-transition);
+					box-shadow: var(--glow);
+					background-image: linear-gradient(
+						to right,
+						var(--accent),
+						var(--accent-2)
+					);
+				}
+
+				&:hover::after {
+					transform-origin: right;
+					transform: scaleX(100%);
+					color: var(--accent);
+				}
+			}
+		}
+	}
+}
+
+.login-btn-popup {
+	width: 10em;
+	background: transparent;
+	border: 2px solid var(--accent);
+	border-radius: var(--radius);
+	cursor: pointer;
+	font-size: 1.1em;
+	color: #fff;
+	font-weight: 600;
+	padding: 0.6rem;
+	margin-left: 2.5rem;
+
+	&:hover {
+		transition: var(--all-transition);
+		background-color: var(--content-bg);
+		color: var(--accent);
+		border: 2px outset var(--accent);
+		transform: scaleX(110%) scaleY(105%);
+	}
+
+	/*
+    ->add active state so user knows button is no longer functional when it's active
+    ->or make it disappear with js
+    */
+}
+
+.open-stack-btn {
+	display: none;
+	font-size: 1.5em;
+	color: #fff;
+	cursor: pointer;
+	float: left;
+	margin-right: 0.6em;
+	padding-top: 0.6em;
+	transition: var(--all-transition);
+
+	&:hover {
+		color: var(--accent);
+		transform: rotateZ(180deg) scale(150%, 150%) translate(30%, -25%);
+	}
+}
+
+#check {
+	display: none;
+}
+
+@media (max-width: 900px) {
+	.open-stack-btn {
+		display: block;
+	}
+
+	header ul {
+		position: fixed;
+		width: 50%;
+		height: 85vh;
+		top: 15%;
+		left: -100%;
+		z-index: 1;
+		transition: var(--all-transition);
+		text-align: center;
+		background: #0f1720;
+		border-right: 2px solid var(--accent);
+		border-radius: var(--radius);
+		box-shadow: var(--glow);
+
+		/*display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;*/
+
+		& li {
+			display: block;
+			margin: 50px 0;
+
+			& a {
+				font-size: 20px;
+			}
+		}
+	}
+
+	#check:checked ~ ul {
+		transition: left 500ms ease-in-out;
+		left: 0;
+	}
+
+	#check:checked ~ .open-stack-btn {
+		color: var(--accent);
+		transform: rotateZ(180deg) scale(150%, 150%) translate(30%, -25%);
+
+		& i::before {
+			content: "\f00d";
+		}
+	}
+}
+
+.logo {
+	background: radial-gradient(
+		50% 50% at 73% 50%,
+		var(--accent-2) 0%,
+		var(--accent) 100%
+	);
+	/*'50% 50%' is for width & height of gradient, 
+    'at 73% 50' is for starting position(73% of width & 50% of height), 
+    '0% 100%' is for starting & ending color%*/
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	user-select: none;
+	font-size: 2.5em;
+	font-weight: bold;
+	cursor: default;
+	animation: gradient 3s ease-in-out infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+/*add padding to the register so it looks like the login*/
+
+.cover-box {
+	position: relative;
+	width: 25rem;
+	height: 25rem;
+	background: transparent;
+	border: 3px inset var(--accent);
+	border-radius: var(--radius-2);
+	box-shadow: var(--glow);
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 2rem;
+	color: #fff;
+	transform: scale(0%);
+	overflow: hidden;
+	transition: var(--all-transition);
+
+	margin-top: 10rem;
+	/*
+    *added margin to the top of the cover box 
+    *so it doesn't go under the floating header
+    */
+
+	&:hover {
+		border-color: var(--accent-2); /*?might change */
+		animation: border-glow 5s infinite alternate;
+	}
+}
+
+@keyframes border-glow {
+	0% {
+		box-shadow: 0 0 1rem -0.2rem #8c1ce180;
+	}
+	100% {
+		box-shadow: 0 0 1rem -0.2rem #8c1ce1;
+	}
+}
+
+.cover-box.active-popup {
+	transform: scale(100%);
+}
+
+.cover-box.active {
+	height: 30rem;
+}
+
+.cover-box .form-box {
+	width: 100%;
+	padding: 1rem;
+
+	& h2 {
+		font-size: 2em;
+		text-align: center;
+		margin: 2rem 0rem;
+	}
+
+	& form {
+		/*->remove margins and use flex & flex-direction with form element*/
+
+		& .input-box {
+			position: relative;
+			width: 100%;
+			height: 3rem;
+			margin: 1.25rem 0;
+
+			& input {
+				width: 100%;
+				height: 90%;
+				background: transparent;
+				border: 2px ridge #fff;
+				/*change color*/
+				border-radius: var(--radius-2);
+				outline: none;
+				padding: 0 0.5rem 0 1rem;
+				font-size: 0.9em;
+				color: #fff;
+			}
+
+			& input:focus + label,
+			& input:valid + label {
+				/*?maybe use :valid to display red border if input is invalid as user types*/
+				top: -0.8em;
+				left: 1.9em;
+				color: #6a5acd;
+				font-size: 0.9em;
+				font-weight: 500;
+			}
+
+			& label {
+				position: absolute;
+				top: 46%;
+				left: 2.5em;
+				transform: translateY(-50%);
+				font-size: 1em;
+				color: gray;
+				font-weight: small;
+				pointer-events: none;
+				transition: all 500ms;
+			}
+
+			/*you are here, fix the icon animation*/
+			& input:focus ~ span,
+			& input:valid ~ span {
+				top: -1.8em;
+				color: #6a5acd;
+				font-size: 1.1em;
+				font-weight: 500;
+			}
+
+			& span {
+				position: absolute;
+				left: 0.5em;
+				font-size: 1.5em;
+				color: #fff;
+				line-height: 3rem;
+				transition: all 500ms;
+			}
+		}
+
+		& .remember-forgot {
+			font-size: 0.9em;
+			color: #fff;
+			font-weight: 500;
+			margin: 0.5rem 0 1.5rem;
+			display: flex;
+			justify-content: space-between;
+
+			& label input {
+				accent-color: var(--accent);
+				margin-right: 0.5rem;
+			}
+		}
+
+		& .btn {
+			width: 100%;
+			height: 3.5rem;
+			background: var(--btn-colour);
+			border: none;
+			outline: none;
+			border-radius: var(--radius-2);
+			cursor: pointer;
+			font-size: 1em;
+			color: #fff;
+			font-weight: 500;
+			margin: -1rem 0 0.5rem;
+		}
+
+		& .login-register {
+			font-size: 0.9em;
+			color: #fff;
+			text-align: center;
+			font-weight: 500;
+			margin: 1rem 0 0.5rem;
+
+			& p a {
+				color: var(--accent);
+				text-decoration: none;
+				font-weight: 600;
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+}
+
+.cover-box .form-box.login {
+	transition: var(--transform-transition);
+	transform: translateX(0%);
+}
+
+.cover-box.active .form-box.login {
+	transition: var(--transform-transition);
+	transform: translateX(-100%);
+}
+
+.cover-box .form-box.register {
+	position: absolute;
+	transition: var(--transform-transition);
+	transform: translateX(100%);
+}
+
+.cover-box.active .form-box.register {
+	transition: var(--transform-transition);
+	transform: translateX(0%);
+}
+
+.cover-box .icon-close {
+	position: absolute;
+	top: 0.5em;
+	left: 0.5em;
+	z-index: 1;
+	font-size: 2rem;
+	color: #fff;
+	cursor: pointer;
+}

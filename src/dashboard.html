@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shorter</title>
+    <link rel="stylesheet" href="./styles/dashboard.css">
+    <script src="https://kit.fontawesome.com/7a4373bc0e.js" crossorigin="*"></script>
+</head>
+
+<body>
+    <div class="wrap">
+        <header class="header-container">
+            <div class="top-header">
+                <div class="logo">
+                    <h1>SHORTer</h1>
+                </div>
+                <div class="url-bar">
+                    <form id="url-submission-form">
+                        <span>&#x1F517</span>
+                        <input type="url" id="url-submission-input" name="original_url" placeholder="Enter the link here" />
+                        <!--find somewhere to add input for expiry date-->
+                    </form>
+                    <button type="button" id="url-submission-btn">
+                        <span class="text-wrapper-url-submission-btn">Shorten!</span>
+                    </button>
+                </div>
+                <div class="profile">
+                    <div class="muted" style="text-align: right">
+                        <div>Welcome</div>
+                        <div id="user-first-name">Tom</div>
+                    </div>
+                    <div id="user-avatar" class="avatar">T</div>
+                </div>
+            </div>
+            <div class="bottom-header">
+                <nav>
+                    <ul class="user-selections">
+                        <li>
+                            <button id="link-selection" type="button">
+                                <i class="fa-sharp fa-solid fa-link"></i>
+                                Link
+                            </button>
+                        </li>
+                        <li>
+                            <button id="statistics-selection" type="button">
+                                <i class="fa-sharp fa-solid fa-chart-line"></i>
+                                <!--find icon for graph-->
+                                Statistics
+                            </button>
+                        </li>
+                        <li>
+                            <button id="history-selection" type="button">
+                                <i class="fa-sharp fa-solid fa-clock"></i>
+                                History
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <section id="link-content" hidden>
+            <div class="link-cards-container">
+                <div class="link-as-text-card">
+                    <p>link</p>
+                    <span>
+                        <i class="fa-sharp fa-solid fa-copy"></i>
+                        <i class="fa-sharp fa-solid fa-external-link-alt"></i>
+                    </span>
+                </div>
+                <div class="link-as-qrcode-card">
+                    <div class="loader"></div>
+                    <img src="./assets/vectors/question.svg" alt="QR">
+                </div>
+            </div>
+        </section>
+
+        <section id="statistics-content" hidden>
+            <h2>
+                Statistics <span class="muted"></span>
+            </h2>
+            <div class="url-stats-container">
+                <div class="url-stats-content">
+                    <div class="url-card" id="short_url">
+                        <div class="url-card-header">
+                            <i class="fa-sharp fa-solid fa-link"></i>
+                            <span>Shortened Link</span>
+                        </div>
+                        <div class="url-card-body" id="short-link-value">
+                            <p>No Content</p>
+                        </div>
+                    </div>                    
+                    <div class="url-card" id="original_url">
+                        <div class="url-card-header">
+                            <i class="fa-sharp fa-solid fa-copyright"></i>
+                            <span>Original Link</span>
+                        </div>
+                        <div class="url-card-body" id="original-link-value">
+                            <p>No Content</p>
+                        </div>
+                    </div>
+                    <div class="url-card" id="clicks">
+                        <div class="url-card-header">
+                            <i class="fa-sharp fa-solid fa-hand-pointer"></i>
+                            <span>Clicks</span>
+                        </div>
+                        <div class="url-card-body" id="clicks-value">
+                            <p>No Content</p>
+                        </div>
+                    </div>    
+                                    
+                    <div class="url-card" id="url_status">
+                        <div class="url-card-header">
+                            <i id="status-icon" class="fa-solid fa-toggle-off status-off"></i>
+                            <span>Status</span>
+                        </div>
+                        <div class="url-card-body">
+                            <button class="status-toggle-button" id="status-toggle-btn">
+                                <i class="fa-sharp fa-solid fa-toggle-off"></i>
+                                <p>Disabled</p>
+                            </button>
+                        </div>
+                    </div>        
+
+                    <div class="url-card" id="created_at">
+                        <div class="url-card-header">
+                            <i class="fa-sharp fa-solid fa-calendar"></i>
+                            <span>Date Created</span>
+                        </div>
+                        <div class="url-card-body" id="date-created-value">
+                            <p>No Content</p>
+                        </div>
+                    </div>                    
+                    <div class="url-card" id="last_used_at">
+                        <div class="url-card-header">
+                            <i class="fa-sharp fa-solid fa-clock"></i>
+                            <span>Last Modified</span>
+                        </div>
+                        <div class="url-card-body" id="last-modified-value">
+                            <p>No Content</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="history-content">
+            <h2>
+                History <span class="muted"></span>
+            </h2>
+            <div style="overflow-y: scroll;">
+                <table class="history-content-table">
+                    <thead>
+                        <tr>
+                            <th>Short Link</th>
+                            <th>Original Link</th>
+                            <th>QR Code</th>
+                            <th>Clicks</th>
+                            <th>Status</th>
+                            <th>Date Created</th>
+                            <th>Date of Last Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id="history_short_url">
+                                http://127.0.0.1/Bn41a
+                                <i class="fa-sharp fa-solid fa-copy" title="copy link"></i>
+                            </td>
+                            <td id="history_original_url">https://www.youtube.com/watch?v=EgpLj86ZHFQ</td>
+                            <td id="history_QR_code" class="history-qr">
+                                <img src="./assets/vectors/question.svg" alt="QR">
+                            </td>
+                            <td id="history_clicks">13</td>
+                            <td id="history_url-status">
+                                <span class="history-status active">
+                                    <i class="fa-sharp fa-solid fa-link"></i>
+                                    Active
+                                </span>
+                            </td>
+                            <td id="history_created_at" class="date">Oct - 10 -2023</td>
+                            <td id="history_last_used_at" class="date">Oct - 10 -2023</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</body>
+<script type="module" src="./js/dashboard.js"></script>
+</html>
